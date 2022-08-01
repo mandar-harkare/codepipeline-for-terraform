@@ -94,7 +94,7 @@ resource "aws_codepipeline" "cicd_pipeline" {
             output_artifacts = ["tf-code"]
             configuration = {
                 FullRepositoryId = "mandar-harkare/codepipeline-for-terraform"
-                BranchName   = "master"
+                BranchName   = "develop"
                 ConnectionArn = var.codestar_connector_credentials
                 OutputArtifactFormat = "CODE_ZIP"
             }
