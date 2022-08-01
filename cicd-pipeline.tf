@@ -48,30 +48,30 @@ resource "aws_codebuild_project" "tf-apply" {
  }
 }
 
-resource "aws_codebuild_project" "inspec-test" {
-  name          = "inspec-test"
-  description   = "Test the deployed infrastructure"
-  service_role  = aws_iam_role.tf-codebuild-role.arn
+# resource "aws_codebuild_project" "inspec-test" {
+#   name          = "inspec-test"
+#   description   = "Test the deployed infrastructure"
+#   service_role  = aws_iam_role.tf-codebuild-role.arn
 
-  artifacts {
-    type = "CODEPIPELINE"
-  }
+#   artifacts {
+#     type = "CODEPIPELINE"
+#   }
 
-  environment {
-    compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "hashicorp/terraform:0.14.3"
-    type                        = "LINUX_CONTAINER"
-    image_pull_credentials_type = "SERVICE_ROLE"
-    registry_credential{
-        credential = var.dockerhub_credentials
-        credential_provider = "SECRETS_MANAGER"
-    }
- }
- source {
-     type   = "CODEPIPELINE"
-     buildspec = file("buildspec/inspec-buildspec.yml")
- }
-}
+#   environment {
+#     compute_type                = "BUILD_GENERAL1_SMALL"
+#     image                       = "hashicorp/terraform:0.14.3"
+#     type                        = "LINUX_CONTAINER"
+#     image_pull_credentials_type = "SERVICE_ROLE"
+#     registry_credential{
+#         credential = var.dockerhub_credentials
+#         credential_provider = "SECRETS_MANAGER"
+#     }
+#  }
+#  source {
+#      type   = "CODEPIPELINE"
+#      buildspec = file("buildspec/inspec-buildspec.yml")
+#  }
+# }
 
 resource "aws_codepipeline" "cicd_pipeline" {
 
